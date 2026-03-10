@@ -1,0 +1,178 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Todo App - JP",
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const TodoListPage(),
+    );
+  }
+}
+
+class TodoListPage extends StatefulWidget {
+  const TodoListPage({super.key});
+
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  final List<Map<String, dynamic>> _tasks = [
+    {'title': 'Do Assignmant', 'isDone': false},
+  ];
+
+  void _addNewTask() {
+    setState(() {
+      _tasks.add({'title': 'My Task is here', 'isDone': false});
+    });
+  }
+
+  void _editTask(int index) {
+    TextEditingController _editController = TextEditingController(
+      text: _tasks[index]['title'],
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Task Name"),
+          content: TextField(
+            controller: _editController,
+            autofocus: true,
+            decoration: const InputDecoration(hintText: "Enter new task name"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _tasks[index]['title'] = _editController.text;
+                });
+                Navigator.pop(context);
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Todo App - JP", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Jeffrey ToDo List',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _tasks.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  child: CheckboxListTile(
+                    value: _tasks[index]['isDone'],
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _tasks[index]['isDone'] = value ?? false;
+                      });
+                    },
+                    title: InkWell(
+                      onTap: () => _editTask(index),
+                      child: Text(
+                        _tasks[index]['title'],
+                        style: TextStyle(
+                          decoration: _tasks[index]['isDone']
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addNewTask,
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+
+// class TaskItem extends StatefulWidget {
+//   final String label;
+
+//   const TaskItem({super.key, required this.label});
+
+//   @override
+//   State<TaskItem> createState() => _TaskItemState();
+// }
+
+// class _TaskItemState extends State<TaskItem> {
+//   bool _value = false;
+//  @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Checkbox(
+//           value: _value,
+//           onChanged: (newValue) {
+//             print('checkbox ${widget.label} new value $newValue');
+//             setState(() {
+//               _value = newValue;
+//             });
+//           },
+//         ),
+//         Text(widget.label),
+//       ],
+//     );
+//   }
+// }
+
+// class TaskList extends StatelessWidget {
+//   const TaskList({super.key});
+
+//  @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         TaskItem(label: "Task 1"),
+//         TaskItem(label: "Task 2"),
+//         TaskItem(label: "Task 3"),
+//         TaskItem(label: "Task 4"),
+//         TaskItem(label: "Task 5"),
+//       ],
+//     );
+//   }
+// }
