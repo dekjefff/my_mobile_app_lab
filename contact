@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:typewritertext/typewritertext.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+
+  
+  @override
+  Widget build(BuildContext context) {
+    
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Jeffrey A. Phillips'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center, 
+          children: [
+          CircleAvatar(backgroundImage: AssetImage('assets/dekjefff.jpg'),
+                radius: 100,
+          ),
+          TypeWriterText(
+                text: Text('Jeffrey Phillips',
+                  style: TextStyle(
+                  fontFamily: 'LavishlyYours',
+                  fontSize: 45.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+          )),
+                duration: Duration(milliseconds: 50),
+          ),
+          
+          Text('Mahidol University',
+            style: GoogleFonts.jersey10(
+              fontSize: 30.0,
+              color: Colors.indigo
+              ),
+          ),
+          Container(
+            color: Colors.blueAccent[100],
+            margin: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 25.0,
+            ),
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email_rounded,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 10.0),
+                Text('Email: jaffephillips@gmail.com',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: Colors.white
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Container(
+            color: Colors.blueAccent[100],
+            margin: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 25.0,
+            ),
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.alternate_email,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 10.0),
+                Text('Line ID: jaffe12344',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: Colors.white
+                  ),
+                ),
+                
+              ],
+            ),
+          ),
+          TypeWriterText(
+                text: Text('Contact Me ((: ...'),
+                duration: Duration(milliseconds: 50),
+          ),
+        ],
+        )
+      ),
+    );
+   }
+}
+
+  // home: Scaffold(
+  //   appBar: AppBar(
+  //     title: Text('Jeffrey A. Phillips'),
+  //   ),
+  //   body: Container(
+  //     color: Colors.blue,
+  //     child: Text('Hello Jeffrey'),
+  //     width: 250,
+  //     height: 500,
+  //     margin: EdgeInsets.only(left:50, top:10),
+  //     padding: EdgeInsets.all(20.0),
+  //   )
+
+  // )
+
